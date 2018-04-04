@@ -28,7 +28,6 @@ import me.yokeyword.fragmentation.SupportActivity;
 //    @Override
 //    public void initPresenter() {
 //    }
-
 //}
 public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel> extends SupportActivity {
     private P mPresent;
