@@ -1,6 +1,8 @@
 package com.hotfix.xyjian.mvpfragment.retrofit;
 
 import android.support.v4.util.ArrayMap;
+import android.util.Log;
+
 import org.reactivestreams.Subscription;
 import java.util.Set;
 
@@ -57,6 +59,7 @@ public class RetrofitApiManager implements RxActionManager<String> {
         }
         maps.get(tag).cancel();
         maps.remove(tag);
+        Log.d("tag","<cancel>"+System.currentTimeMillis());
     }
 
     /**

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.FieldMap;
@@ -41,9 +42,10 @@ public interface APIService {
     //单文件或图片上传
     @Multipart
     @POST("{url}")
-    Observable<ResponseBody> upLoadFile(
+    Flowable<ResponseBody> upLoadFile(
             @Path(value = "url", encoded = true) String url,
-            @Part("image\";filename =\"image.jpg") RequestBody avatar);
+            @Part("description") RequestBody description,
+            @Part MultipartBody.Part filer);
 
     //多文件或者图片上传
     @POST("{url}")

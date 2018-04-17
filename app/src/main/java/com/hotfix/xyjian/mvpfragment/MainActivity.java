@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.hotfix.xyjian.mvpfragment.activity.ChangeFragmentActivity;
 import com.hotfix.xyjian.mvpfragment.base.BaseActivity;
-import com.hotfix.xyjian.mvpfragment.kotlin.Customer;
+
 
 import butterknife.OnClick;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;

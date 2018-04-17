@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +19,11 @@ import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
@@ -34,8 +38,8 @@ public class RetrofitClient {
     private OkHttpClient okHttpClient;
     private static String baseUrl = "";// API.APPSERVERVERSION;
 
-    private APIService mBaseApiServices;
-    private APIService mUrlApiServices;
+    private APIService mBaseApiServices;//临时确定的 BaseUrl创建的server
+    private APIService mUrlApiServices;//临时确认的，动态的BaseUrl创建的server
     private APIService mApiServices;
     private boolean isBaseUrl = true;
     private Gson gson;
@@ -49,8 +53,8 @@ public class RetrofitClient {
         return SingletonHolder.INSTANCE;
     }
 
-    public static RetrofitClient getInstance(String url) {
-        return new RetrofitClient(url);
+    public static RetrofitClient getInstance(String baseUrl) {
+        return new RetrofitClient(baseUrl);
     }
 
     private RetrofitClient() {
@@ -160,6 +164,35 @@ public class RetrofitClient {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 
+    }
+
+    public <T> Flowable<T> uploadFile(String urlField, File file,String fileDesc, final Class<T> clazz) {
+
+        RequestBody fileBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody fileDescBody = RequestBody.create(MediaType.parse("multipart/form-data"), fileDesc);
+        MultipartBody.Part formData = MultipartBody.Part.createFormData("keyName", file.getName(), fileBody);//keyName是跟后台约定好的
+
+        return mApiServices.upLoadFile(urlField,fileDescBody,formData)
+                .onBackpressureDrop()//背压丢弃策略
+                .map(new Function<ResponseBody, T>() {
+                    @Override
+                    public T apply(ResponseBody responseBody) throws Exception {
+                        T t = null;
+                        try {
+                            String body = responseBody.string();
+                            t = getGson().fromJson(body, clazz);
+                        } catch (Exception e) {
+                            new Exception(e.getMessage());
+                        } finally {
+                            if (null != responseBody) {
+                                responseBody.close();
+                            }
+                        }
+                        return t;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
 

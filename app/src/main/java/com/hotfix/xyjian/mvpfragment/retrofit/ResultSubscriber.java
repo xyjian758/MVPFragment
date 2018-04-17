@@ -3,7 +3,8 @@ package com.hotfix.xyjian.mvpfragment.retrofit;
 import android.content.Context;
 import android.support.annotation.IntDef;
 import android.text.TextUtils;
-
+import android.util.Log;
+import com.hotfix.xyjian.mvpfragment.widget.dialog.CustomProgressDialog;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
@@ -43,12 +44,13 @@ public abstract class ResultSubscriber<T extends BaseBean> implements Subscriber
 
     @Override
     public void onSubscribe(Subscription s) {
+        Log.d("tag", "<onSubscribe>" + System.currentTimeMillis());
         if (mShowDialog) {
             //需要加载进度框
             if (!TextUtils.isEmpty(mDialogMsg)) {
-//                CustomProgressDialog.showLoading(mContext, mDialogMsg);
+                CustomProgressDialog.showLoading(mContext, mDialogMsg);
             } else {
-//                CustomProgressDialog.showLoading(mContext);
+                CustomProgressDialog.showLoading(mContext);
             }
         }
         s.request(1);//网络请求一般也只有发送一次
@@ -57,6 +59,7 @@ public abstract class ResultSubscriber<T extends BaseBean> implements Subscriber
 
     @Override
     public void onNext(T t) {
+        Log.d("tag", "<onNext>" + System.currentTimeMillis());
         if (t == null) {
             dataError(ERROR_DATA, "");
             return;
@@ -70,9 +73,10 @@ public abstract class ResultSubscriber<T extends BaseBean> implements Subscriber
 
     @Override
     public void onError(Throwable t) {
+        Log.d("tag", "<onError>" + System.currentTimeMillis());
         if (mShowDialog) {
             //取消对话框
-//            CustomProgressDialog.stopLoading();
+            CustomProgressDialog.stopLoading();
         }
         RetrofitApiManager.getInstance().remove(mRequestTag);
         dataError(ERROR_NET, t.getMessage());
@@ -80,9 +84,10 @@ public abstract class ResultSubscriber<T extends BaseBean> implements Subscriber
 
     @Override
     public void onComplete() {
+        Log.d("tag", "<onComplete>" + System.currentTimeMillis());
         if (mShowDialog) {
             //取消对话框
-//            CustomProgressDialog.stopLoading();
+            CustomProgressDialog.stopLoading();
         }
         RetrofitApiManager.getInstance().remove(mRequestTag);
     }
