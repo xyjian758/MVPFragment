@@ -21,7 +21,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 //
 //    @Override
 //    public void initPresenter() {
-//        mPresenter.setViewAndModel(this, mModel);
+//        mPresenter.setView(this);
 //    }
 //}
 //2.普通模式
@@ -30,9 +30,8 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 //    public void initPresenter() {
 //    }
 //}
-public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel> extends SupportFragment {
+public abstract class BaseFragment<P extends BasePresenter> extends SupportFragment {
     protected P mPresent;
-    protected M mMode;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +50,6 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
 
     private void initMVP() {
         mPresent = TUtil.getT(this, 0);
-        mMode = TUtil.getT(this, 1);
     }
 
     @Override

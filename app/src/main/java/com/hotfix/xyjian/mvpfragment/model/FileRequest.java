@@ -1,4 +1,4 @@
-package com.hotfix.xyjian.mvpfragment.retrofit.request;
+package com.hotfix.xyjian.mvpfragment.model;
 
 import com.hotfix.xyjian.mvpfragment.retrofit.BaseBean;
 import com.hotfix.xyjian.mvpfragment.retrofit.RetrofitClient;

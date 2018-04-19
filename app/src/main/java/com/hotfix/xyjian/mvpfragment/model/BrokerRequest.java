@@ -1,4 +1,4 @@
-package com.hotfix.xyjian.mvpfragment.retrofit.request;
+package com.hotfix.xyjian.mvpfragment.model;
 
 import android.util.Log;
 
@@ -15,7 +15,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 把所有的请求统一放到一个类下面 方便统一管理和复用
  */
-public class BrokerRequest {
+public class BrokerRequest extends CommonRequestMode {
 
     /**
      * 经纪人 热门城市定位 获取当前定位城市信息
@@ -31,7 +31,8 @@ public class BrokerRequest {
         params.put("order_type","0");
         params.put("page","1");
         params.put("size","15");
-        String baseUrl="http://10.0.11.44:8080/api/";
+//        String baseUrl="http://10.0.11.44:8080/api/";
+        String baseUrl="https://life-api.youlanw.com/api/";
         RetrofitClient.getInstance(baseUrl)
                 .post("platform/v2/job/findHomePageJobs", params, BaseBean.class)
                 .doOnSubscribe(new Consumer<Subscription>() {

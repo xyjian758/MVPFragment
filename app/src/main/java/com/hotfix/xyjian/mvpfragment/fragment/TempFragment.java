@@ -10,20 +10,12 @@ import android.widget.Toast;
 import com.hotfix.xyjian.mvpfragment.R;
 import com.hotfix.xyjian.mvpfragment.base.BaseFragment;
 import com.hotfix.xyjian.mvpfragment.contract.TempContact;
-import com.hotfix.xyjian.mvpfragment.retrofit.BaseBean;
-import com.hotfix.xyjian.mvpfragment.retrofit.ResultSubscriber;
 import com.hotfix.xyjian.mvpfragment.retrofit.RetrofitApiManager;
-import com.hotfix.xyjian.mvpfragment.retrofit.request.BrokerRequest;
-
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
-import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class TempFragment extends BaseFragment<TempContact.TempPresenter, TempContact.TempMode> implements TempContact.TempView {
+public class TempFragment extends BaseFragment<TempContact.TempPresenter> implements TempContact.TempView {
     @Bind(R.id.textView)
     TextView textView;
 
@@ -49,7 +41,7 @@ public class TempFragment extends BaseFragment<TempContact.TempPresenter, TempCo
 
     @Override
     public void initPresenter() {
-        mPresent.setViewAndModel(this, mMode);
+        mPresent.setView(this);
     }
 
     @OnClick({R.id.button})
@@ -80,6 +72,11 @@ public class TempFragment extends BaseFragment<TempContact.TempPresenter, TempCo
 
     @Override
     public void showInfo() {
+
+    }
+
+    @Override
+    public void showToast(String msg) {
 
     }
 

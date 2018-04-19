@@ -30,9 +30,8 @@ import me.yokeyword.fragmentation.SupportActivity;
 //    }
 
 //}
-public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel> extends SupportActivity {
+public abstract class BaseActivity<P extends BasePresenter> extends SupportActivity {
     private P mPresent;
-    private M mMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,6 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
 
     private void initMVP() {
         mPresent = TUtil.getT(this, 0);
-        mMode = TUtil.getT(this, 1);
     }
 
 

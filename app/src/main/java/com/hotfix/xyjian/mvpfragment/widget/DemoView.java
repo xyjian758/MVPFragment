@@ -78,10 +78,27 @@ public class DemoView  extends View{
 //        canvas.drawRoundRect(90,300,200,400,10,5,mPaint);
 //
 //        canvas.drawCircle(250,80,50,mPaint);
-        canvas.translate(mWidth/4,mHeight/4);
-        canvas.drawArc(0,0,80,60,0,90,true,mPaint);
-        canvas.rotate(90);
-        mPaint.setColor(Color.RED);
-        canvas.drawArc(0,0,80,60,0,90,true,mPaint);
+//        canvas.translate(mWidth/4,mHeight/4);
+//        canvas.drawArc(0,0,80,60,0,90,true,mPaint);
+//        canvas.rotate(90);
+//        mPaint.setColor(Color.RED);
+//        canvas.drawArc(0,0,80,60,0,90,true,mPaint);
+
+        canvas.translate(mWidth/2,mHeight/2);
+        mPaint.setStyle(Paint.Style.STROKE);
+        canvas.drawCircle(0,0,200,mPaint);
+        canvas.drawCircle(0,0,160,mPaint);
+        mPaint.setStyle(Paint.Style.FILL);
+        for (int i = 0; i < 18; i++) {
+            canvas.drawLine(0,160,0,200,mPaint);
+            canvas.rotate(20);
+        }
+
+//        mPaint.setStyle(Paint.Style.STROKE);
+//        for (int i = 0; i < 18; i++) {
+//            canvas.drawCircle(0,0,200,mPaint);
+//            canvas.scale(0.8f,0.8f);
+//        }
+
     }
 }
