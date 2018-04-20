@@ -41,5 +41,11 @@ public class TempContact {
                 }
             });
         }
+
+        @Override
+        public void onDestroy() {
+            super.onDestroy();
+
+        }
     }
 }

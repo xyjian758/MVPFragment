@@ -4,6 +4,8 @@ import android.support.v4.util.ArrayMap;
 import android.util.Log;
 
 import org.reactivestreams.Subscription;
+
+import java.util.ArrayList;
 import java.util.Set;
 
 
@@ -71,9 +73,11 @@ public class RetrofitApiManager implements RxActionManager<String> {
             return;
         }
         Set<String> keys = maps.keySet();
-        for (String apiKey : keys) {
+        ArrayList<String> keyList = new ArrayList<>(keys);
+        for (String apiKey : keyList) {
             cancel(apiKey);
         }
+
     }
 
 }
